@@ -21,8 +21,8 @@ echo $PROXY
 sudo apt install qemu-user-static
 
 # Download Ubuntu Base file system (https://wiki.ubuntu.com/Base)
-ROOTFSURL=http://cdimage.ubuntu.com/ubuntu-base/releases/18.04.3/release/
-ROOTFS=ubuntu-base-18.04.6-base-${ARCH}.tar.gz
+ROOTFSURL=https://cdimage.ubuntu.com/ubuntu-base/releases/22.04/release/
+ROOTFS=ubuntu-base-22.04.2-base-${ARCH}.tar.gz
 if [ ! -s ${ROOTFS} ]; then
     curl -OLf ${ROOTFSURL}${ROOTFS}
 fi
@@ -98,7 +98,7 @@ sudo  chroot  ${MNTROOTFS} apt-get update
 # Install the dialog package and others first to squelch some warnings
 sudo chroot ${MNTROOTFS} apt-get -y install dialog apt-utils
 sudo chroot ${MNTROOTFS} apt-get -y upgrade
-sudo chroot ${MNTROOTFS} apt-get -y install systemd systemd-sysv sysvinit-utils sudo udev rsyslog kmod util-linux sed netbase dnsutils ifupdown isc-dhcp-client isc-dhcp-common less nano vim net-tools iproute2 iputils-ping libnss-mdns iw software-properties-common ethtool dmsetup hostname iptables logrotate lsb-base lsb-release plymouth psmisc tar tcpd libsystemd-dev symlinks uuid-dev libc6-dev libncurses-dev libglib2.0-dev build-essential bridge-utils zlib1g-dev patch libpixman-1-dev libyajl-dev libfdt-dev libaio-dev git libusb-1.0-0-dev libpulse-dev libcapstone-dev libnl-route-3-dev openssh-sftp-server
+sudo chroot ${MNTROOTFS} apt-get -y install systemd systemd-sysv sysvinit-utils sudo udev rsyslog kmod util-linux sed netbase dnsutils ifupdown isc-dhcp-client isc-dhcp-common less nano vim net-tools iproute2 iputils-ping libnss-mdns iw software-properties-common ethtool dmsetup hostname iptables logrotate lsb-base lsb-release plymouth psmisc tar tcpd libsystemd-dev symlinks uuid-dev libc6-dev libncurses-dev libglib2.0-dev build-essential bridge-utils zlib1g-dev patch libpixman-1-dev libyajl-dev libfdt-dev libaio-dev git libusb-1.0-0-dev libpulse-dev libcapstone-dev libnl-route-3-dev openssh-sftp-server xen-doc xen-tools xen-utils-4.16
 sudo chroot ${MNTROOTFS} apt-get clean
 sudo cp regenerate_ssh_host_keys.service ${MNTROOTFS}etc/systemd/system
 sudo chroot ${MNTROOTFS} systemctl enable regenerate_ssh_host_keys.service

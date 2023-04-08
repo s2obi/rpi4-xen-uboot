@@ -12,7 +12,7 @@ PROXY_CFG="";
 DNS_SERVER="8.8.8.8";
 
 ARCH_CFG="arm64";
-IMAGE_SIZE=2048;
+IMAGE_SIZE=4096;
 
 # build type guest or host
 BUILD_TYPE="host"; 
@@ -66,18 +66,11 @@ if [ ! -d firmware ]; then
 fi
 
 if [ ! -d xen ]; then
-    git clone git://xenbits.xen.org/xen.git
-    cd xen
-    git checkout RELEASE-4.13.0
-    git am ${SCRIPTDIR}patches/xen/0001-XEN-on-RPi4-1GB-lmitation-workaround-XEN-tries-to-al.patch
-    cd ${WRKDIR}
+    git clone -b RELEASE-4.17.0 https://xenbits.xenproject.org/git-http/xen.git
 fi
 
 if [ ! -d linux ]; then
-    git clone --depth 1 --branch rpi-4.19.y https://github.com/raspberrypi/linux.git linux
-    cd linux
-    git am ${SCRIPTDIR}patches/linux/*.patch
-    cd ${WRKDIR}
+    git clone --depth 1 --branch rpi-5.15.y https://github.com/raspberrypi/linux.git linux
 fi
 
 # Clone u-boot and build
@@ -103,7 +96,7 @@ if [ ! -s ${WRKDIR}xen/xen/xen ]; then
         echo "CONFIG_SCHED_ARINC653=y" >> xen/arch/arm/configs/arm64_defconfig
         make -C xen XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CONFIG_EARLY_PRINTK=8250,0xfe215040,2 defconfig
     fi
-    make XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CONFIG_EARLY_PRINTK=8250,0xfe215040,2 dist-xen -j $(nproc)
+    make XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dist-xen -j$(nproc)
     cd ${WRKDIR}
 fi
 
@@ -199,7 +192,7 @@ MNTROOTFS=/mnt/dom0_rpi-arm64-rootfs/
 MNTBOOT=${MNTROOTFS}boot/
 IMGFILE=${MNTRAMDISK}rpixen.img
 
-ROOTFS=ubuntu-base-18.04.6-base-${BUILD_ARCH}.tar.gz
+ROOTFS=ubuntu-base-22.04.2-base-${BUILD_ARCH}.tar.gz
 if [ ! -s ${ROOTFS} ]; then
     ./ubuntu-base-prep.sh ${ROOTFS} ${MNTRAMDISK} ${BUILD_ARCH}  ${DNS_SERVER} ${PROXY_CFG} 
 fi

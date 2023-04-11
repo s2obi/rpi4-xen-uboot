@@ -31,14 +31,13 @@ fi
 
 
 if [ -z "${ARM64_TOOLCHAIN_VERSION-}" ]; then
-
-    ARM64_TOOLCHAIN_VERSION=8.3-2019.03
-    ARM64_TOOLCHAIN_FILENAME=gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu
+    ARM64_TOOLCHAIN_VERSION=11.3.rel1
+    ARM64_TOOLCHAIN_FILENAME=arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu
 
     if [ ! -d ${ARM64_TOOLCHAIN_SCRIPTDIR}${ARM64_TOOLCHAIN_FILENAME} ]; then
         cd ${ARM64_TOOLCHAIN_SCRIPTDIR}
         if [ ! -s ${ARM64_TOOLCHAIN_FILENAME}.tar.xz ]; then
-            wget https://developer.arm.com/-/media/Files/downloads/gnu-a/${ARM64_TOOLCHAIN_VERSION}/binrel/${ARM64_TOOLCHAIN_FILENAME}.tar.xz
+            wget https://developer.arm.com/-/media/Files/downloads/gnu/${ARM64_TOOLCHAIN_VERSION}/binrel/${ARM64_TOOLCHAIN_FILENAME}.tar.xz
         fi
         tar -xf ${ARM64_TOOLCHAIN_FILENAME}.tar.xz
         cd ${ARM64_TOOLCHAIN_WRKDIR}

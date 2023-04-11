@@ -12,7 +12,7 @@ PROXY_CFG="";
 DNS_SERVER="8.8.8.8";
 
 ARCH_CFG="arm64";
-IMAGE_SIZE=4096;
+IMAGE_SIZE=8192;
 
 # build type guest or host
 BUILD_TYPE="host"; 
@@ -53,7 +53,7 @@ VARIANT=dom0
 
 BUILD_ARCH=$ARCH_CFG
 
-sudo apt install device-tree-compiler tftpd-hpa flex bison qemu-utils kpartx git curl qemu-user-static binfmt-support parted bc libncurses5-dev libssl-dev pkg-config python acpica-tools u-boot-tools
+sudo apt install device-tree-compiler tftpd-hpa flex bison qemu-utils kpartx git curl qemu-user-static binfmt-support parted bc libncurses5-dev libssl-dev pkg-config python3 acpica-tools u-boot-tools
 
 source ${SCRIPTDIR}toolchain-aarch64-linux-gnu.sh
 
@@ -66,7 +66,7 @@ if [ ! -d firmware ]; then
 fi
 
 if [ ! -d xen ]; then
-    git clone -b RELEASE-4.17.0 https://xenbits.xenproject.org/git-http/xen.git
+    git clone -b RELEASE-4.16.0 https://xenbits.xenproject.org/git-http/xen.git
 fi
 
 if [ ! -d linux ]; then

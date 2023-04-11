@@ -12,7 +12,7 @@ PROXY_CFG="";
 DNS_SERVER="8.8.8.8";
 
 ARCH_CFG="arm64";
-IMAGE_SIZE=1024;
+IMAGE_SIZE=2048;
 
 # build type guest or host
 BUILD_TYPE="host"; 
@@ -44,7 +44,7 @@ WRKDIR=$(pwd)/
 SCRIPTDIR=$(cd $(dirname $0) && pwd)/
 
 USERNAME=domu
-PASSWORD=domu
+PASSWORD=123
 SALT=dw
 HASHED_PASSWORD=$(perl -e "print crypt(\"${PASSWORD}\",\"${SALT}\");")
 HOSTNAME=ubuntuDomU
@@ -59,7 +59,7 @@ ARTIFACTS=domu.tar
 
 BUILD_ARCH=$ARCH_CFG
 
-sudo apt install device-tree-compiler tftpd-hpa flex bison qemu-utils kpartx git curl qemu-user-static binfmt-support parted bc libncurses5-dev libssl-dev pkg-config python acpica-tools
+sudo apt install device-tree-compiler tftpd-hpa flex bison qemu-utils kpartx git curl qemu-user-static binfmt-support parted bc libncurses5-dev libssl-dev pkg-config python3 acpica-tools
 
 source ${SCRIPTDIR}toolchain-aarch64-linux-gnu.sh
 
@@ -71,7 +71,7 @@ fi
 #prepare kernel for domU
 
 if [ ! -d linux_domu ]; then
-    git clone --depth 1 --branch linux-5.5.y  http://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux_domu
+    git clone --depth 1 --branch linux-5.15.y  http://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux_domu
     cd ${WRKDIR}
 fi
 

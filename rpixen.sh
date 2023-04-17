@@ -41,8 +41,6 @@ done
 
 
 WRKDIR=$(pwd)/
-SCRIPTDIR=$(cd $(dirname $0) && pwd)/
-
 USERNAME=pi
 PASSWORD=123
 
@@ -54,8 +52,6 @@ VARIANT=dom0
 BUILD_ARCH=$ARCH_CFG
 
 sudo apt install device-tree-compiler tftpd-hpa flex bison qemu-utils kpartx git curl qemu-user-static binfmt-support parted bc libncurses5-dev libssl-dev pkg-config python3 acpica-tools u-boot-tools
-
-source ${SCRIPTDIR}toolchain-aarch64-linux-gnu.sh
 
 DTBFILE=bcm2711-rpi-4-b.dtb
 
@@ -147,7 +143,6 @@ cat > bootfiles/config.txt <<EOF
 kernel=u-boot.bin
 arm_64bit=1
 device_tree=${DTBFILE}
-total_mem=3072
 enable_gic=1
 
 #disable_overscan=1
